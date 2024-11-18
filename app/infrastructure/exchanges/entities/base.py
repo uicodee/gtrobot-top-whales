@@ -1,5 +1,23 @@
 import ccxt.async_support as ccxt
 from abc import ABC, abstractmethod
+from typing import Optional, Any
+
+
+class ExchangeResponse:
+    def __init__(self, result: Optional[Any], status: int, message: str):
+        self.result = result
+        self.status = status
+        self.message = message
+
+    def to_dict(self) -> dict:
+        return {
+            'result': self.result,
+            'status': self.status,
+            'message': self.message
+        }
+
+    def __str__(self) -> str:
+        return f'ExchangeResponse(result={self.result}, status={self.status}, message={self.message})'
 
 
 class BaseExchange(ABC):
@@ -11,6 +29,7 @@ class BaseExchange(ABC):
 
         exchange_class = getattr(ccxt, exchange_name)
         exchange_params = {
+            'options': {'defaultType': 'spot'},
             'apiKey': api_key,
             'secret': api_secret,
         }

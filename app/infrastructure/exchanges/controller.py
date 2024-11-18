@@ -1,4 +1,4 @@
-from .binance import BinanceExchange
+from .entities import BinanceExchange, BybitExchange, MexcExchange, BitgetExchange, OkxExchange
 
 
 class ExchangeController:
@@ -11,7 +11,40 @@ class ExchangeController:
 
     async def __aenter__(self):
         if self.exchange_name == 'binance':
-            self.exchange = BinanceExchange(self.api_key, self.api_secret, self.api_passphrase)
+            self.exchange = BinanceExchange(
+                api_key=self.api_key,
+                api_secret=self.api_secret,
+                api_passphrase=self.api_passphrase
+            )
+
+        elif self.exchange_name == 'bybit':
+            self.exchange = BybitExchange(
+                api_key=self.api_key,
+                api_secret=self.api_secret,
+                api_passphrase=self.api_passphrase
+            )
+
+        elif self.exchange_name == 'mexc':
+            self.exchange = MexcExchange(
+                api_key=self.api_key,
+                api_secret=self.api_secret,
+                api_passphrase=self.api_passphrase
+            )
+
+        elif self.exchange_name == 'bitget':
+            self.exchange = BitgetExchange(
+                api_key=self.api_key,
+                api_secret=self.api_secret,
+                api_passphrase=self.api_passphrase
+            )
+
+        elif self.exchange_name == 'okx':
+            self.exchange = OkxExchange(
+                api_key=self.api_key,
+                api_secret=self.api_secret,
+                api_passphrase=self.api_passphrase
+            )
+
         else:
             raise ValueError(f"Биржа '{self.exchange_name}' не поддерживается.")
 

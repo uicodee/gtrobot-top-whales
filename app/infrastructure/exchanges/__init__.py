@@ -1,1 +1,1 @@
-from .exchange_controller import ExchangeController
+from .controller import ExchangeController
